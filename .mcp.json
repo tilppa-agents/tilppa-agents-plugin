@@ -1,0 +1,32 @@
+{
+  "mcpServers": {
+    "tilppa-agents": {
+      "type": "http",
+      "url": "https://agents.tilppa.com/mcp",
+      "oauth": {
+        "authServerMetadataUrl": "https://api.workos.com/.well-known/openid-configuration"
+      }
+    },
+    "tilppa-contacts": {
+      "type": "http",
+      "url": "https://agents.tilppa.com/contacts",
+      "oauth": {
+        "authServerMetadataUrl": "https://api.workos.com/.well-known/openid-configuration"
+      }
+    },
+    "tilppa-admin": {
+      "type": "http",
+      "url": "https://agents.tilppa.com/admin",
+      "oauth": {
+        "authServerMetadataUrl": "https://api.workos.com/.well-known/openid-configuration"
+      }
+    },
+    "tilppa-teach": {
+      "type": "http",
+      "url": "https://agents.tilppa.com/teach",
+      "oauth": {
+        "authServerMetadataUrl": "https://api.workos.com/.well-known/openid-configuration"
+      }
+    }
+  }
+}

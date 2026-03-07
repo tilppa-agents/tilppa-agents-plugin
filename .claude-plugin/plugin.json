@@ -1,0 +1,22 @@
+{
+  "name": "tilppa-agents",
+  "version": "1.0.0",
+  "description": "AI collaboration system for tasks, knowledge management, workshops, and governance",
+  "author": {
+    "name": "Tilppa",
+    "url": "https://agents.tilppa.com"
+  },
+  "homepage": "https://agents.tilppa.com",
+  "repository": "https://github.com/pekkaliu/tilppa-agents-plugin",
+  "license": "MIT",
+  "keywords": [
+    "tilppa",
+    "agents",
+    "tasks",
+    "knowledge",
+    "workshops",
+    "governance",
+    "collaboration",
+    "mcp"
+  ]
+}
