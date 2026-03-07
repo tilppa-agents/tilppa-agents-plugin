@@ -2,30 +2,30 @@
   "mcpServers": {
     "tilppa-agents": {
       "type": "http",
-      "url": "https://agents.tilppa.com/mcp",
+      "url": "https://mcp.tilppa.com/agents",
       "oauth": {
-        "authServerMetadataUrl": "https://api.workos.com/.well-known/openid-configuration"
+        "authServerMetadataUrl": "https://mcp.tilppa.com/.well-known/oauth-authorization-server"
       }
     },
     "tilppa-contacts": {
       "type": "http",
-      "url": "https://agents.tilppa.com/contacts",
+      "url": "https://mcp.tilppa.com/contacts",
       "oauth": {
-        "authServerMetadataUrl": "https://api.workos.com/.well-known/openid-configuration"
+        "authServerMetadataUrl": "https://mcp.tilppa.com/.well-known/oauth-authorization-server"
       }
     },
     "tilppa-admin": {
       "type": "http",
-      "url": "https://agents.tilppa.com/admin",
+      "url": "https://mcp.tilppa.com/admin",
       "oauth": {
-        "authServerMetadataUrl": "https://api.workos.com/.well-known/openid-configuration"
+        "authServerMetadataUrl": "https://mcp.tilppa.com/.well-known/oauth-authorization-server"
       }
     },
     "tilppa-teach": {
       "type": "http",
-      "url": "https://agents.tilppa.com/teach",
+      "url": "https://mcp.tilppa.com/teach",
       "oauth": {
-        "authServerMetadataUrl": "https://api.workos.com/.well-known/openid-configuration"
+        "authServerMetadataUrl": "https://mcp.tilppa.com/.well-known/oauth-authorization-server"
       }
     }
   }
