@@ -23,7 +23,6 @@ This loads: user info, notifications, active roles, open tasks, knowledge index,
 | notification | `/tilppa-agents:tilppa-notification` | Reminders, messages, pending checks |
 | governance | `/tilppa-agents:tilppa-governance` | Clearance, shaping, trust, policies |
 | skills | `/tilppa-agents:tilppa-skills` | Load org-specific custom skills |
-| org | `/tilppa-agents:tilppa-org` | Multi-org management, context switching |
 | teach | `/tilppa-agents:tilppa-teach` | Analyze codebases, generate knowledge |
 
 ## Knowledge-First Rule
@@ -58,10 +57,9 @@ All tags follow `prefix:value` format: `scope:`, `project:`, `feature:`, `epic:`
 
 ## MCP Servers
 
-3 MCP servers connect automatically via OAuth:
+2 MCP servers connect automatically via OAuth:
 - `tilppa-agents` -- core: tasks, knowledge, decisions, workshops, contacts, teach, governance (trust, autonomy, approval gates)
 - `tilppa-admin` -- settings, onboarding, audit, clearance, policies, shaping
-- `tilppa-platform` -- org management, user management, DB management (founder/dev only)
 
 Requires Claude Code v2.1.7+ for deferred tool loading (MCP tool search) -- tools are discovered on-demand via ToolSearch instead of loading all into context.
 
@@ -79,3 +77,7 @@ If MCP tools are missing or `/tilppa-agents:tilppa-refresh` fails:
 2. **Authenticated?** -- `/mcp` > check server status, re-authenticate if needed
 3. **Claude Code version?** -- Requires v2.1.64+ for OAuth support
 4. **Server running?** -- `curl https://agents.tilppa.com/health`
+5. **OAuth browser not opening?** -- Check default browser settings, try `/mcp` > re-authenticate
+6. **Token expired?** -- Run `/mcp` > select server > "Authenticate" to refresh
+7. **Wrong org?** -- Use `/tilppa-agents:tilppa-org` to switch organization
+8. **Reinstall plugin** -- `claude plugin uninstall tilppa-agents` then reinstall

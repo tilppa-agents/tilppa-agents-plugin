@@ -13,13 +13,6 @@
       "oauth": {
         "authServerMetadataUrl": "https://prepared-visit-90-staging.authkit.app/.well-known/oauth-authorization-server"
       }
-    },
-    "tilppa-platform": {
-      "type": "http",
-      "url": "https://mcp.tilppa.com/platform",
-      "oauth": {
-        "authServerMetadataUrl": "https://prepared-visit-90-staging.authkit.app/.well-known/oauth-authorization-server"
-      }
     }
   }
 }

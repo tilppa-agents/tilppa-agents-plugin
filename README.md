@@ -4,8 +4,8 @@ Claude Code plugin for **Tilppa Agents** -- an AI collaboration system for tasks
 
 ## What's included
 
-- **12 skills** (slash commands): refresh, task, knowledge, decision, workshop, milestone, notification, governance, org, teach, onboarding, skills
-- **4 MCP servers**: agents, contacts, admin, teach (all via OAuth -- no manual token setup)
+- **11 skills** (slash commands): refresh, task, knowledge, decision, workshop, milestone, notification, governance, teach, onboarding, skills
+- **2 MCP servers**: agents, admin (all via OAuth -- no manual token setup)
 - **CLAUDE.md**: Session start instructions, knowledge-first rule, tag conventions
 
 ## Requirements
@@ -16,13 +16,11 @@ Claude Code plugin for **Tilppa Agents** -- an AI collaboration system for tasks
 ## Installation
 
 ```bash
-claude plugin install tilppa-agents
-```
+# Add marketplace (one-time)
+/plugin marketplace add tilppa-agents/tilppa-agents-marketplace
 
-Or install from local directory for development:
-
-```bash
-claude --plugin-dir /path/to/tilppa-agents-plugin
+# Install
+claude plugin install tilppa-agents@tilppa-agents-marketplace
 ```
 
 ## First use
@@ -45,7 +43,6 @@ claude --plugin-dir /path/to/tilppa-agents-plugin
 | `/tilppa-agents:tilppa-milestone` | Track progress and milestones |
 | `/tilppa-agents:tilppa-notification` | Reminders and messages |
 | `/tilppa-agents:tilppa-governance` | Clearance, trust, policies |
-| `/tilppa-agents:tilppa-org` | Multi-org management |
 | `/tilppa-agents:tilppa-teach` | Analyze codebases, generate knowledge |
 | `/tilppa-agents:tilppa-onboarding` | New team member onboarding |
 | `/tilppa-agents:tilppa-skills` | Load org-specific custom skills |
@@ -55,21 +52,6 @@ claude --plugin-dir /path/to/tilppa-agents-plugin
 Uses **OAuth 2.1** via WorkOS AuthKit. On first MCP tool call, Claude Code opens a browser for login. Tokens are refreshed automatically.
 
 To re-authenticate: `/mcp` > select a Tilppa server > "Authenticate"
-
-## Plugin vs Base Repo
-
-This plugin is a lightweight alternative to the [tilppa-agents-base](https://github.com/pekkaliu/tilppa-agents-base) git repo.
-
-| Feature | Plugin | Base Repo |
-|---------|--------|-----------|
-| Installation | `/plugin install` | `git clone` |
-| Authentication | OAuth (automatic) | Bearer token (manual) |
-| Skills | Included | Included |
-| Org workspace (`_workspace/`) | Not included | Included |
-| Org rules (`.claude/rules/`) | Not included | Included |
-| Subproject support (`setup.sh`) | Not needed | Included |
-
-Use the **plugin** for individual use. Use the **base repo** for team/org-level workflows.
 
 ## License
 
