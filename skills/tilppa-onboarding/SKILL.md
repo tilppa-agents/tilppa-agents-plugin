@@ -13,7 +13,7 @@ Detect from user's environment locale. Supported: fi, en. Default: en.
 
 ### Flow
 
-1. **Start:** `onboarding_update status="in_progress"`
+1. **Start:** `onboarding_update status="in_progress"` (server: admin)
 2. **Question 1 — Role type:** "What best describes your role?"
    - `developer` — technical, writes code
    - `product` — product management, requirements, roadmap
@@ -24,10 +24,10 @@ Detect from user's environment locale. Supported: fi, en. Default: en.
    - `knowledge` — search and document learnings
    - `workshop` — plan features or decisions collaboratively
    - `other` — explore on my own
-4. **Save answers:** `onboarding_update answers={"role_type": "...", "first_goal": "..."}`
-5. **Save profile:** `users_manage action="update_profile" user_id="..." profile={"role_type": "...", "first_goal": "...", "locale": "...", "onboarded_at": "<now>"}`
-6. **Activate roles:** `role_manage action="add" role_names=[...]` (see mapping below)
-7. **Complete:** `onboarding_update status="completed"`
+4. **Save answers:** `onboarding_update answers={"role_type": "...", "first_goal": "..."}` (server: admin)
+5. **Save profile:** `users_manage action="update_profile" user_id="..." profile={...}` (server: platform)
+6. **Activate roles:** `role_manage action="add" role_names=[...]` (server: agents)
+7. **Complete:** `onboarding_update status="completed"` (server: admin)
 
 ### Role Activation Mapping
 
@@ -40,11 +40,11 @@ Detect from user's environment locale. Supported: fi, en. Default: en.
 
 ### Tools
 
-```
-onboarding_get                    # Get own onboarding details
-onboarding_list                   # List all sessions (Admin)
-onboarding_update status="..."    # Update status or answers
-onboarding_create user_id="..."   # Create manually (Admin)
-users_manage action="update_profile" user_id="..." profile={...}
-role_manage action="add" role_names=[...]
-```
+| Tool | Server | Purpose |
+|------|--------|---------|
+| `onboarding_get` | admin | Get own onboarding details |
+| `onboarding_list` | admin | List all sessions (Admin) |
+| `onboarding_update` | admin | Update status or answers |
+| `onboarding_create` | admin | Create manually (Admin) |
+| `users_manage` | platform | Update user profile (founder/dev only) |
+| `role_manage` | agents | Add/remove agent roles |

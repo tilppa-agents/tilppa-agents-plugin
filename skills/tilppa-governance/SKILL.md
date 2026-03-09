@@ -1,6 +1,6 @@
 ---
 name: tilppa-governance
-description: "Manage information shaping, clearance levels, trust scores, and access policies. Use when controlling what users can see, checking permissions, granting temporary access, or managing progressive autonomy."
+description: "Manage information shaping, clearance levels, trust scores, approval gates, and access policies. Use when controlling what users can see, checking permissions, granting temporary access, managing progressive autonomy, or asking who can see what."
 argument-hint: "[action: status|check|grant] [details]"
 allowed-tools: ToolSearch
 ---
@@ -16,7 +16,7 @@ Layer 1: FOUNDATION — Roles, Tasks, Knowledge, Decisions
 
 ## Tools
 
-### Clearance
+### Clearance (server: admin)
 
 | Tool | Purpose |
 |------|---------|
@@ -29,7 +29,7 @@ Layer 1: FOUNDATION — Roles, Tasks, Knowledge, Decisions
 | `grants_list` | List clearance grants (user_id, status, limit) |
 | `grants_history` | Grant history (user_id, limit) |
 
-### Shaping & Policies
+### Shaping & Policies (server: admin)
 
 | Tool | Purpose |
 |------|---------|
@@ -41,27 +41,41 @@ Layer 1: FOUNDATION — Roles, Tasks, Knowledge, Decisions
 | `policies_create` | Create a policy (admin) |
 | `policies_update` | Update policy (id + params) |
 | `policies_delete` | Delete non-system policy (id) |
+| `audit_list` | View audit log entries |
 
-### Trust
+### Trust (server: agents)
 
 | Tool | Purpose |
 |------|---------|
 | `trust_score_get` | Get trust score (role, action_type, lookback_days) |
 | `trust_scores_list` | List all trust scores (min_actions, lookback_days) |
-| `trust_score_history` | Score history (role, action_type, days) |
 
-### Autonomy
+### Autonomy (server: agents)
 
 | Tool | Purpose |
 |------|---------|
 | `autonomy_status` | Current autonomy level (role, action_type) |
 | `autonomy_list` | List all autonomy configs |
-| `autonomy_pending` | List pending escalations |
-| `autonomy_approve` | Approve escalation (role, action_type) |
-| `autonomy_reject` | Reject escalation (role, action_type) |
-| `autonomy_override` | Set autonomy level (role, action_type, level 1-4, reason) |
-| `autonomy_downgrade` | Downgrade autonomy (role, action_type, to_level, reason) |
-| `autonomy_clear_override` | Clear override (role, action_type) |
+
+### Approval Gates (server: agents)
+
+| Tool | Purpose |
+|------|---------|
+| `gates_list` | List approval gates |
+| `gates_check` | Check if action requires approval |
+| `gates_create` | Create approval gate |
+| `gates_update` | Update approval gate |
+| `gates_delete` | Delete approval gate |
+| `approvals_list` | List pending approvals |
+| `approvals_get` | Get approval details |
+| `approvals_vote` | Vote on an approval (approve/reject) |
+
+### Groups (server: agents)
+
+| Tool | Purpose |
+|------|---------|
+| `groups_list` | List groups |
+| `group_manage` | Create, update, or delete groups |
 
 ## Usage Examples
 
@@ -71,22 +85,13 @@ clearance_my                      # Your clearance level
 clearance_my topic="financials"   # Clearance for specific topic
 policy_check data_type="knowledge" topic="financial-budget" user_id="..."
 content_shape data_type="knowledge" topic="budget" content="..."
+gates_check action_type="deploy"  # Check if deploy needs approval
+approvals_list                    # List pending approvals
 ```
 
 ## Information Shaping
 
 Agents operate with full information — only OUTPUT is shaped according to clearance level.
-
-**Clearance Levels:**
-
-| Level | Score | Sees |
-|-------|-------|------|
-| founder | 100 | Everything |
-| executive | 80 | Nearly everything |
-| manager | 60 | Team data |
-| employee | 40 | Own work data |
-| partner | 20 | Limited data |
-| customer | 10 | Public data |
 
 **Shape types:** full, directional, summary, abstract, none
 

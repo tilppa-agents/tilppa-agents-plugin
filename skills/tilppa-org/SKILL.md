@@ -7,16 +7,33 @@ allowed-tools: ToolSearch
 
 ## Tools
 
+### Organization (server: agents)
+
 | Tool | Purpose |
 |------|---------|
 | `org_list` | List all organizations |
 | `org_info` | Get details for an org |
 | `org_tree` | Show org hierarchy |
+| `org_switch` | Switch org context |
+| `org_set_template` | Set org milestone template |
+| `milestones_portfolio` | Cross-org milestone portfolio |
+
+### Organization Management (server: platform — founder/dev only)
+
+| Tool | Purpose |
+|------|---------|
 | `org_create` | Create a new org |
 | `org_provision` | Provision org DB + tables |
-| `org_switch` | Switch org context |
 | `org_update` | Update org settings |
-| `milestones_portfolio` | Cross-org milestone portfolio |
+
+### Projects (server: agents)
+
+| Tool | Purpose |
+|------|---------|
+| `project_list` | List projects in current org |
+| `project_get` | Get project details |
+| `project_set` | Set active project context |
+| `project_update` | Update project settings |
 
 ## Usage Examples
 
@@ -30,13 +47,14 @@ org_list
 org_info slug="tilppa"
 org_tree
 
-# Create and provision
+# Create and provision (platform-only)
 org_create name="New Org" slug="new-org"
 org_create name="New Org" slug="new-org" org_type="project" parent_slug="tilppa"
 org_provision slug="new-org"
 
-# Update org settings
-org_update slug="new-org" name="Updated Name" org_type="project"
+# Projects
+project_list
+project_set slug="tilppa-agents"
 ```
 
 ## Org Context Priority

@@ -54,6 +54,16 @@ tasks_create items: [
 
 `todo` → `in_progress` → `done` (also: `blocked`)
 
+### Contacts
+
+| Tool | Purpose |
+|------|---------|
+| `contacts_list` | List contacts (filter by type, search) |
+| `contacts_get` | Get contact details |
+| `contacts_search` | Search contacts by name/email |
+| `contacts_create` | Create a contact (name, email, type, notes) |
+| `contacts_update` | Update contact details |
+
 ### Related Org Skills
 
 - `skills:tagging` — Tag convention for `project:`, `feature:`, `epic:` prefixes

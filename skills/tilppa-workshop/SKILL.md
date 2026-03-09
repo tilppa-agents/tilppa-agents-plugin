@@ -72,7 +72,6 @@ workshop_list         [show_recent=true]                        # List recent wo
 ### Exploration Tools
 
 ```
-exploration_context     session_id="..." [phase_id="..."]       # Get exploration context
 exploration_contribute  session_id="..." role="..." perspective="..." [recommendations/concerns/questions optional]
 workshop_synthesize     session_id="..." [phase_id="..."]       # Synthesize outputs
 ```
