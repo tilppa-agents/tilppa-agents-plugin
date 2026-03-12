@@ -11,11 +11,11 @@ allowed-tools: ToolSearch
 
 | Tool | Purpose |
 |------|---------|
-| `tasks_list` | Search tasks. `search` for semantic search, or filter by status/assignee/priority |
-| `tasks_create` | Create a task (auto-notifies assignee). `items` array for batch creation (max 50). `related_entity` |
-| `tasks_update` | Update task: title, status, assignee, priority, description, tags, add_tags, remove_tags, `related_entity` |
-| `tasks_get` | Get task details. `ids` array for batch retrieval (max 50) |
-| `tasks_delete` | Delete task permanently (Admin). `ids` array for batch deletion (max 50) |
+| `tasks_list` | Search tasks. `search` for semantic/exact search, filter by status/assignee/priority/tags |
+| `tasks_create` | Create a task (auto-notifies assignee). `items` array for batch (max 50) |
+| `tasks_update` | Update task fields including `external_id` for external system linking |
+| `tasks_get` | Get task details by TP-xxx, UUID, or external ID. `ids` array for batch (max 50) |
+| `tasks_delete` | Delete task permanently (Admin). `ids` array for batch (max 50) |
 
 ### Search Examples
 
@@ -23,11 +23,19 @@ allowed-tools: ToolSearch
 # Semantic search (natural language)
 tasks_list search="authentication and login flow"
 
-# Filtering
-tasks_list status="todo" assignee="Pekka" priority="high"
+# Exact identifier match (auto-detected for patterns like DA-2158, JIRA-123)
+tasks_list search="DA-2158"
 
-# Combined
-tasks_list search="checkout flow" status="in_progress"
+# Filter by status/assignee/priority
+tasks_list status="todo" assigned_to="Pekka" priority="high"
+
+# Tag filters (same as knowledge_list/decisions_list)
+tasks_list tags_any=["project:tilppa-agents", "project:kuura"]
+tasks_list tags_all=["scope:backend", "feature:auth"]
+tasks_list tag_prefix="epic"
+
+# Combined: semantic search + tag filter
+tasks_list search="checkout flow" status="in_progress" tags_any=["project:tilppa"]
 ```
 
 ### Creating a Task
@@ -38,14 +46,30 @@ tasks_create
   description: "Description, context, acceptance criteria"
   priority: "high"
   assigned_to: "Pekka"
+  external_id: "DA-2158"
   tags: ["project:tilppa-agents", "epic:TP-41", "feature:workshop"]
+```
+
+### External ID
+
+Link tasks to external systems (Jira, GitHub, etc.). Must be unique per org.
+
+```
+# Set on create
+tasks_create title="Fix login bug" external_id="DA-2158"
+
+# Set on update
+tasks_update id="TP-113" external_id="DA-2158"
+
+# Lookup by external ID
+tasks_get id="DA-2158"
 ```
 
 ### Batch Creation
 
 ```
 tasks_create items: [
-  { title: "Task 1", priority: "high", tags: ["epic:TP-41"] },
+  { title: "Task 1", priority: "high", external_id: "DA-100", tags: ["epic:TP-41"] },
   { title: "Task 2", priority: "medium", assigned_to: "Otto" }
 ]
 ```
