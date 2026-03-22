@@ -12,7 +12,7 @@ allowed-tools: ToolSearch
 | Tool | Purpose |
 |------|---------|
 | `tasks_list` | Search tasks. `search` for semantic/exact search, filter by status/assignee/priority/tags |
-| `tasks_create` | Create a task (auto-notifies assignee). `items` array for batch (max 50) |
+| `tasks_create` | Create a task (auto-notifies assignee). **`item_overview` required** (1-2 sentence summary, max 200 chars). `items` array for batch (max 50) |
 | `tasks_update` | Update task fields including `external_id` for external system linking |
 | `tasks_get` | Get task details by TP-xxx, UUID, or external ID. `ids` array for batch (max 50) |
 | `tasks_delete` | Delete task permanently (Admin). `ids` array for batch (max 50) |
@@ -44,6 +44,7 @@ tasks_list search="checkout flow" status="in_progress" tags_any=["project:tilppa
 tasks_create
   title: "Title (imperative form)"
   description: "Description, context, acceptance criteria"
+  item_overview: "1-2 sentence summary for list views, max 200 chars"
   priority: "high"
   assigned_to: "Pekka"
   external_id: "DA-2158"
@@ -69,8 +70,8 @@ tasks_get id="DA-2158"
 
 ```
 tasks_create items: [
-  { title: "Task 1", priority: "high", external_id: "DA-100", tags: ["epic:TP-41"] },
-  { title: "Task 2", priority: "medium", assigned_to: "Otto" }
+  { title: "Task 1", item_overview: "Summary of task 1", priority: "high", external_id: "DA-100", tags: ["epic:TP-41"] },
+  { title: "Task 2", item_overview: "Summary of task 2", priority: "medium", assigned_to: "Otto" }
 ]
 ```
 

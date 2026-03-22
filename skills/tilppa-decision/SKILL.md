@@ -12,9 +12,9 @@ allowed-tools: ToolSearch
 | Tool | Description |
 |------|-------------|
 | `decisions_list` | Search decisions. `search` for semantic search, `tags_any` for filtering, `tags_all` for AND logic, `tag_prefix` for prefix filtering, `role` for agent role filter, `limit` (default 20), `related_entity` for entity filtering |
-| `decisions_create` | Save a decision. `items` array for batch creation (max 50). `visibility` (private/team/public), `related_entity` |
+| `decisions_create` | Save a decision. **`item_overview` required** (1-2 sentence summary, max 200 chars). `items` array for batch (max 50). `visibility` (private/team/public), `related_entity` |
 | `decisions_get` | Fetch full details. `ids` array for batch retrieval (max 50) |
-| `decisions_update` | Update: decision, context, rationale, tags, `add_tags`, `remove_tags`, `visibility`, `related_entity` |
+| `decisions_update` | Update: decision, item_overview, context, rationale, tags, `add_tags`, `remove_tags`, `visibility`, `related_entity` |
 | `decisions_delete` | Delete (Admin). `ids` array for batch deletion (max 50) |
 
 ### Search
@@ -33,6 +33,7 @@ decisions_list tags_any=["feature:milestones", "epic:TP-41"]
 decisions_create
   role: "ArchitectAgent"
   decision: "Clear decision statement"
+  item_overview: "1-2 sentence summary for list views, max 200 chars"
   context: "Situation and alternatives considered"
   rationale: "Why this option was chosen"
   tags: ["project:tilppa-agents", "feature:workshop", "epic:TP-164"]

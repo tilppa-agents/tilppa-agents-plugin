@@ -52,7 +52,7 @@ workshop_start
 2. **Role Validation** — Call `roles` to load ALL available roles with descriptions, then decide which to add/remove
 3. **Framing** — Goal, constraints, success criteria (BusinessAgent leads)
 4. **Exploration** — Each role's perspective in parallel
-   - **KNOWLEDGE FIRST: Before reading ANY source code**, search `knowledge_list` and `decisions_list` for relevant topics. Then use `knowledge_get` and `decisions_get` to load full item content (list only returns truncated previews). Only read code if knowledge does not cover the question.
+   - **KNOWLEDGE FIRST: Before reading ANY source code**, search `knowledge_list` and `decisions_list` for relevant topics. Then use `knowledge_get` and `decisions_get` to load full item content (list only returns item_overview, not full content). Only read code if knowledge does not cover the question.
 5. **Synthesis** — Combine findings, identify conflicts (LeadDevAgent leads)
 6. **Decision** — Decision + rationale (ArchitectAgent leads)
 7. **Action** — Implementation, tasks, code
@@ -96,7 +96,7 @@ This is the most valuable phase. Skipping it loses all learnings for the team.
    b. **Find ALL affected items**: Search broadly for items that reference topics changed by workshop decisions:
       - `knowledge_list search="<changed topic>"` for each major decision
       - `knowledge_list tags_any=["feature:X", "project:Y"]` for related items
-   c. **Load full content** (`knowledge_get`) — list previews are truncated, you MUST read full content to check for stale info
+   c. **Load full content** (`knowledge_get`) — list returns item_overview only, you MUST read full content to check for stale info
    d. **Update every item** with stale info: outdated commands, wrong counts, old flows, deprecated approaches
    e. **Add ⚠️ warnings** to items describing implementations that will change (e.g., "⚠️ TP-XXX will change this")
    f. **Verify**: "If a new session reads these items, will it have accurate information?"

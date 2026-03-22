@@ -20,9 +20,9 @@ allowed-tools: ToolSearch
 | Tool | Purpose |
 |------|---------|
 | `knowledge_list` | Search knowledge base. `search` for semantic search, `tags_any` for tag filtering, `tags_all` for AND logic, `tag_prefix` for prefix filtering (e.g. "skills"), `role` for agent role filter, `limit` (default 20) |
-| `knowledge_create` | Save new knowledge. `items` array for batch creation (max 50). `status` (draft/published, optional) |
+| `knowledge_create` | Save new knowledge. **`item_overview` required** (1-2 sentence summary, max 200 chars). `items` array for batch (max 50). `status` (draft/published, optional) |
 | `knowledge_get` | Get full details. `ids` array for batch retrieval (max 50) |
-| `knowledge_update` | Update: content, topic, tags, add_tags, remove_tags, visibility |
+| `knowledge_update` | Update: content, item_overview, topic, tags, add_tags, remove_tags, visibility |
 | `knowledge_delete` | Delete (Admin). `ids` array for batch deletion (max 50) |
 | `knowledge_review` | Manage draft items: list, approve, reject, edit. Use `approve_all`/`reject_all` for batch actions. `topic` param available for edit action |
 
@@ -49,6 +49,7 @@ knowledge_create
   role: "ArchitectAgent"
   topic: "topic-in-kebab-case"
   content: "300-500 words, enough context for standalone use"
+  item_overview: "1-2 sentence summary for list views, max 200 chars"
   tags: ["project:tilppa-agents", "feature:workshop-flow", "category:architecture"]
   visibility: "team"
 ```
