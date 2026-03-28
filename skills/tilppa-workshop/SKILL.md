@@ -21,14 +21,14 @@ When the user requests a workshop, **always provide the full command** with all 
 |-----------|----------|-------------|---------|
 | `topic` | **yes** | Task ID + description | `"TP-268: Fix Stripe webhook"` |
 | `project` | no | Project slug (auto-detected from topic) | `"tilppa-agents"` |
-| `template_name` | no | Runbook template (default: `"default"`) | `"quick"`, `"review"` |
+| `template_name` | no | Runbook template (default: `"default"`) | `"quick"`, `"pr-review"` |
 | `roles` | no | Participating agents | `["ArchitectAgent", "BackendDevAgent"]` |
 | `workshop_type` | no | Workshop type | `"discovery"`, `"planning"`, `"review"` |
 | `depth` | no | Analysis depth | `"minimal"`, `"standard"`, `"full"` |
 
 ### Runbook Templates
 
-`quick` (bugfix, small change) | `default` (new feature, architecture) | `review` (code review, retro)
+`quick` (bugfix, small change) | `default` (new feature, architecture) | `pr-review` (PR code review) | `review` (work/decision review)
 
 ### Phase Instructions Cascade
 
