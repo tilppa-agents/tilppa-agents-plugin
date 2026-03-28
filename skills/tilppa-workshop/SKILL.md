@@ -45,11 +45,23 @@ Merge: `modify_phases` = shallow merge per phase, `remove_phases` = filter, `add
 
 **Follow `phase_instructions` in each phase** — they contain goals, instructions, expected outputs, and thinking mode.
 
+### Phase Gates
+
+Phases can have exit gates that control when you can leave them:
+
+- **auto** (default) — advances immediately
+- **approval_required** — blocks until human approves (stub: use `force=true` to bypass)
+- **iterative** — phase repeats up to `max_iterations` times (review-fix-review cycle)
+
+For iterative phases: `workshop_advance iterate=true` re-enters the same phase. `force=true` bypasses any gate. Output keys use `_iter{N}` suffix (e.g., `review_iter1`).
+
+Active iterative phases: pr-review.review(3), implementation.verification(2), review.review(2).
+
 ### Session Commands
 
 ```
 workshop_start        topic="..." [project/template_name/roles/workshop_type/depth]
-workshop_advance      session_id="..."                          # Advance to next phase
+workshop_advance      session_id="..." [iterate=true] [force=true]  # Advance or iterate
 workshop_status       session_id="..."                          # Show session state
 workshop_end          session_id="..." [summary="..."]          # End and save session
 workshop_save_output  session_id="..." phase_id="..." output={...} [role="..."]
