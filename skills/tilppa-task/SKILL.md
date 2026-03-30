@@ -77,7 +77,7 @@ tasks_create items: [
 
 ### Status Flow
 
-`todo` → `in_progress` → `done` (also: `blocked`)
+`todo` | `on_hold` | `in_progress` | `in_review` | `blocked` | `done` | `cancelled`
 
 ### Contacts
 
