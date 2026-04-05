@@ -77,6 +77,10 @@ Layer 1: FOUNDATION — Roles, Tasks, Knowledge, Decisions
 | `groups_list` | List groups |
 | `group_manage` | Create, update, or delete groups |
 
+## Cowork Notes
+
+When displaying governance status or clearance info, present results clearly in text — use `TodoWrite` if the user wants to track multiple governance actions. For policy reports or audit logs, use Cowork's docx/pdf skills and `present_files`.
+
 ## Usage Examples
 
 ```

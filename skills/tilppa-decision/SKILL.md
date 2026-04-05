@@ -29,6 +29,8 @@ decisions_list tags_any=["feature:milestones", "epic:TP-41"]
 
 ### Creation
 
+Use `AskUserQuestion` to confirm context and rationale if the user states a decision but doesn't provide reasoning.
+
 ```
 decisions_create
   role: "ArchitectAgent"
@@ -44,6 +46,12 @@ decisions_create
 - Always include `context` and `rationale` — a decision without reasoning loses value over time.
 - Tag consistently using `project:`, `feature:`, `epic:` prefixes.
 - After workshops, record key outcomes as decisions with the workshop session ID in the context.
+
+### Exporting Decisions
+
+In Cowork, decision records can be exported as formatted documents:
+- Use Cowork's docx/pdf skills for decision logs and reports
+- Use `present_files` to share with the user
 
 ### Related Org Skills
 

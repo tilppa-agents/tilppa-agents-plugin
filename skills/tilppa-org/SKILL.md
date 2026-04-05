@@ -57,6 +57,10 @@ project_list
 project_set slug="tilppa-agents"
 ```
 
+## Cowork Notes
+
+When switching orgs, confirm with `AskUserQuestion` if the user hasn't specified which org. After switching, re-run refresh to load the new org context.
+
 ## Org Context Priority
 
 Resolution order: `org_switch` override > `TILPPA_ORG` env > `.tilppa-org` file

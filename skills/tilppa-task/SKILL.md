@@ -7,6 +7,8 @@ allowed-tools: ToolSearch
 
 ## Tilppa Task Management
 
+When listing or searching tasks, use `TodoWrite` to display results as a trackable list for the user.
+
 ### Tools
 
 | Tool | Purpose |
@@ -39,6 +41,8 @@ tasks_list search="checkout flow" status="in_progress" tags_any=["project:tilppa
 ```
 
 ### Creating a Task
+
+Before creating, use `AskUserQuestion` to confirm details if the user's request is ambiguous (priority, assignee, tags).
 
 ```
 tasks_create
@@ -74,6 +78,23 @@ tasks_create items: [
   { title: "Task 2", item_overview: "Summary of task 2", priority: "medium", assigned_to: "Otto" }
 ]
 ```
+
+### Epic-Subtask Linking
+
+When creating subtasks under an epic, **always link them during creation**:
+
+1. Set `related_entity` to the epic task ID on each subtask
+2. Update the epic description to list all subtasks with TP-IDs
+
+```
+# Subtask with epic link
+tasks_create title="Implement Redis model" related_entity="TP-564" tags=["epic:consciousness-lab"]
+
+# Epic description should list subtasks
+tasks_update id="TP-564" description="## EPIC: ...\n\n### Subtasks\n- TP-573: Redis model\n- TP-574: CRUD service"
+```
+
+Do this during batch creation, not as a separate step afterwards.
 
 ### Status Flow
 

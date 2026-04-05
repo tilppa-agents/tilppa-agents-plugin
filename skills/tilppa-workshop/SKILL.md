@@ -9,11 +9,7 @@ allowed-tools: ToolSearch
 
 Structured facilitation for planning, design, and decision-making with multiple agent roles.
 
-When the user requests a workshop, **always provide the full command** with all parameters:
-
-```
-/tilppa-workshop start topic="TP-XXX: Clear description" project=tilppa-agents roles=ArchitectAgent,BackendDevAgent task=TP-XXX
-```
+When the user requests a workshop, use `AskUserQuestion` to confirm topic, scope, and relevant agents before starting. Then use `TodoWrite` to track workshop phases as tasks.
 
 ### Parameters
 
@@ -69,6 +65,13 @@ workshop_list         [show_recent=true]                        # List recent wo
 exploration_contribute session_id="..." role="..." perspective="..." [recommendations/concerns/questions]
 workshop_synthesize   session_id="..." [phase_id="..."]         # Synthesize outputs
 ```
+
+### Workshop Output as Documents
+
+In Cowork, workshop results can be exported as documents:
+- Use Cowork's docx/pptx/pdf skills to create deliverables from workshop outputs
+- Use `present_files` to share the finished documents with the user
+- Save outputs to the mounted workspace folder
 
 ### Runbook Management
 

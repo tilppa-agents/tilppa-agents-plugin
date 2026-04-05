@@ -50,3 +50,7 @@ knowledge_teach mode="graph" feature_name="services" paths=["src/services/"] pro
 ### Output
 
 Creates DRAFT knowledge items for user review via `knowledge_review action="list"`.
+
+### Cowork Notes
+
+Use `TodoWrite` to track teach analysis progress (especially for `codebase` mode which may take multiple steps). When analysis is complete, offer to export findings as a formatted document using Cowork's docx skills and `present_files`.

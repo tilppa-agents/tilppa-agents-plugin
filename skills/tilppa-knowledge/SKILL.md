@@ -44,6 +44,8 @@ knowledge_list search="authentication" tags_any=["project:tilppa-frontend"]
 
 ### Creating Knowledge
 
+Use `AskUserQuestion` to confirm topic, tags, and visibility when the user asks to save knowledge but details are unclear.
+
 ```
 knowledge_create
   role: "ArchitectAgent"
@@ -61,6 +63,12 @@ knowledge_create
 ### Category Tags
 
 `category:architecture`, `category:feature`, `category:style-guide`, `category:pitfall`, `category:skill`, `category:migration-guide`
+
+### Exporting Knowledge
+
+In Cowork, knowledge search results can be exported as documents:
+- Use Cowork's docx/pdf skills to create formatted knowledge reports
+- Use `present_files` to share exports with the user
 
 ### Related Org Skills
 
