@@ -50,6 +50,23 @@ This loads: user info, notifications, active roles, open tasks, knowledge index,
 - **Knowledge** = current state (how things work now)
 - **Decisions** = historical record (what was decided and why)
 
+## Task Execution Rule
+
+**ALL TP-tasks MUST be executed through a workshop:**
+
+1. `tasks_get id="TP-X"` — read task description (contains all context, references, and instructions)
+2. `workshop_start topic="TP-X: [title]" template_name="quick|default" roles=[...]`
+3. Follow runbook phases — task description is the single source of truth
+4. `workshop_end summary="..."` + `tasks_update id="TP-X" status="done"`
+
+**Never execute tasks directly without a workshop wrapper.** Workshops provide: audit trail, phase discipline, knowledge impact scan, and session continuity (new session can resume from workshop ID).
+
+**Minimal task prompt format** (everything else comes from task description):
+```
+tasks_get id="TP-X"
+workshop_start topic="TP-X: [title]" template_name="quick" roles=[...]
+```
+
 ## Rules
 
 **NEVER:**
