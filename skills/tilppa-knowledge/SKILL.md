@@ -44,8 +44,6 @@ knowledge_list search="authentication" tags_any=["project:tilppa-frontend"]
 
 ### Creating Knowledge
 
-Use `AskUserQuestion` to confirm topic, tags, and visibility when the user asks to save knowledge but details are unclear.
-
 ```
 knowledge_create
   role: "ArchitectAgent"
@@ -63,6 +61,29 @@ knowledge_create
 ### Category Tags
 
 `category:architecture`, `category:feature`, `category:style-guide`, `category:pitfall`, `category:skill`, `category:migration-guide`
+
+### Documents (unlimited content)
+
+For long-form reports, analyses, and digests that exceed knowledge item limits:
+
+| Tool | Purpose |
+|------|---------|
+| `documents_create` | Create document. `type` required (report\|analysis\|brief\|digest\|note). No content limit. `items` array for batch (max 50). `metadata` JSONB for { date, source_signals[], audience, runbook_id }. Optional `knowledge_id` to link to a knowledge item. |
+| `documents_get` | Get full content by `id` — no truncation |
+| `documents_list` | List by `type`/`tags_any`/`tags_all`/`tag_prefix` — metadata only (no content) |
+| `documents_search` | Semantic search on title+description. `search` required. |
+| `documents_delete` | Delete (Admin). `ids` array for batch (max 50). |
+
+```
+# Create a long report
+documents_create type="digest" title="Iran Daily 7.4.2026" content="[koko raportti]" tags=["project:intelligence"]
+
+# Find all geo digests
+documents_list type="digest" tags_any=["scope:geo"]
+
+# Get full content
+documents_get id="<uuid>"
+```
 
 ### Exporting Knowledge
 
