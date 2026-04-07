@@ -57,6 +57,10 @@ template_manage action="delete" name="custom"
 
 `overall = sum(template_weight * template_pct) / sum(template_weight)`
 
+## Cowork Notes
+
+When showing milestone summaries, use `TodoWrite` to display progress as a trackable checklist. For portfolio views across organizations, consider exporting as a formatted document using Cowork's xlsx/docx skills and `present_files`.
+
 ## Important Notes
 
 - **End of session:** ALWAYS run `milestones_update requirement_key="..." status="completed"` for any milestones achieved during the session.

@@ -77,6 +77,10 @@ knowledge_create
 | Updated via `git pull` | Updated via `knowledge_update` |
 | MCP tool usage guides | Org workflows and patterns |
 
+### Cowork Notes
+
+When creating org skills, use `AskUserQuestion` to gather the skill's purpose, target audience, and key instructions before writing the knowledge item.
+
 ### Related Org Skills
 
 - `skills:skill-creation` — Detailed guide for creating org skills (fields, principles, checklist)

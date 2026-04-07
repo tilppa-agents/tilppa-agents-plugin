@@ -1,35 +1,46 @@
-# Tilppa Agents Plugin
+# Tilppa Agents Plugin (Cowork)
 
-Claude Code plugin for **Tilppa Agents** -- an AI collaboration system for tasks, knowledge management, workshops, and governance.
+Claude Cowork plugin for **Tilppa Agents** — an AI collaboration system for tasks, knowledge management, workshops, and governance.
+
+> **Branch:** `feature/cowork-support` — Cowork-optimized version. For Claude Code version, see `main` branch.
 
 ## What's included
 
-- **11 skills** (slash commands): refresh, task, knowledge, decision, workshop, milestone, notification, governance, teach, onboarding, skills
-- **2 MCP servers**: agents, admin (all via OAuth -- no manual token setup)
-- **CLAUDE.md**: Session start instructions, knowledge-first rule, tag conventions
+- **12 skills** (slash commands): refresh, task, knowledge, decision, workshop, milestone, notification, governance, teach, onboarding, org, skills
+- **2 MCP servers**: agents, admin (all via OAuth — no manual token setup)
+- **CLAUDE.md**: Cowork-specific session instructions, knowledge-first rule, Cowork interaction patterns
+
+## Cowork vs Claude Code
+
+| Aspect | This branch (Cowork) | main branch (Code) |
+|--------|---------------------|-------------------|
+| Environment | Claude Cowork desktop app | Terminal / VS Code |
+| User interaction | `AskUserQuestion` for clarification | Text prompts |
+| Progress tracking | `TodoWrite` for task lists | Subagents for parallelism |
+| File delivery | `present_files` for documents | Terminal output |
+| Document creation | Cowork skills (docx, pptx, xlsx, pdf) | Direct file writes |
+| MCP config | `.mcp.json` active (OAuth) | `.mcp.json.disabled` |
 
 ## Requirements
 
-- Claude Code **v2.1.64+** (OAuth support)
+- Claude Cowork desktop app
 - Tilppa Agents account ([register](https://agents.tilppa.com))
 
 ## Installation
 
-```bash
-# Add marketplace (one-time)
-/plugin marketplace add tilppa-agents/tilppa-agents-marketplace
+Install as a Cowork plugin:
 
-# Install
-claude plugin install tilppa-agents@tilppa-agents-marketplace
-```
+1. Download the `.plugin` file from releases
+2. Open Claude Cowork → Settings → Plugins → Install
+3. Run `/tilppa-agents:tilppa-refresh` to start
 
 ## First use
 
 1. Install the plugin
-2. Start Claude Code in your project
+2. Start a Cowork session
 3. Run `/tilppa-agents:tilppa-refresh`
-4. Claude Code opens a browser for OAuth login (first time only)
-5. You're connected -- start using skills
+4. A browser opens for OAuth login (first time only)
+5. You're connected — start using skills
 
 ## Skills
 
@@ -46,12 +57,15 @@ claude plugin install tilppa-agents@tilppa-agents-marketplace
 | `/tilppa-agents:tilppa-teach` | Analyze codebases, generate knowledge |
 | `/tilppa-agents:tilppa-onboarding` | New team member onboarding |
 | `/tilppa-agents:tilppa-skills` | Load org-specific custom skills |
+| `/tilppa-agents:tilppa-org` | Multi-org management and switching |
+
+## Multi-org setup
+
+This plugin works across all your Tilppa organizations. Use `/tilppa-agents:tilppa-org` to switch between orgs. Each org has its own tasks, knowledge, decisions, and governance rules.
 
 ## Authentication
 
-Uses **OAuth 2.1** via WorkOS AuthKit. On first MCP tool call, Claude Code opens a browser for login. Tokens are refreshed automatically.
-
-To re-authenticate: `/mcp` > select a Tilppa server > "Authenticate"
+Uses **OAuth 2.1** via WorkOS AuthKit. On first MCP tool call, a browser opens for login. Tokens are refreshed automatically.
 
 ## License
 

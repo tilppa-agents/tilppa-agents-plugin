@@ -1,6 +1,6 @@
-# CLAUDE.md -- Tilppa Agents Plugin
+# CLAUDE.md -- Tilppa Agents Plugin (Cowork)
 
-Tilppa Agents is an AI collaboration system for tasks, knowledge management, workshops, and governance.
+Tilppa Agents is an AI collaboration system for tasks, knowledge management, workshops, and governance. This plugin is optimized for **Claude Cowork** (desktop app).
 
 ## Session Start
 
@@ -8,7 +8,19 @@ Tilppa Agents is an AI collaboration system for tasks, knowledge management, wor
 
 This loads: user info, notifications, active roles, open tasks, knowledge index, and recent decisions.
 
-**IMPORTANT: Output the full refresh result as text** -- tool output collapses in the Claude Code UI.
+## Cowork Interaction Patterns
+
+**ALWAYS use these Cowork-native tools:**
+
+- `AskUserQuestion` — Clarify requirements before starting multi-step work
+- `TodoWrite` — Track progress for any task with 3+ steps
+- `present_files` — Share deliverables (documents, reports, exports) with the user
+- Cowork file skills (docx, pptx, xlsx, pdf) — When producing documents, use the built-in Cowork skills for professional output
+
+**Output behavior:**
+- Refresh results display naturally in Cowork — no need to force-print as text
+- Save all outputs to the mounted workspace folder so the user can access them
+- Use structured, visual responses — Cowork renders markdown well
 
 ## Available Skills
 
@@ -38,6 +50,23 @@ This loads: user info, notifications, active roles, open tasks, knowledge index,
 - **Knowledge** = current state (how things work now)
 - **Decisions** = historical record (what was decided and why)
 
+## Task Execution Rule
+
+**ALL TP-tasks MUST be executed through a workshop:**
+
+1. `tasks_get id="TP-X"` — read task description (contains all context, references, and instructions)
+2. `workshop_start topic="TP-X: [title]" template_name="quick|default" roles=[...]`
+3. Follow runbook phases — task description is the single source of truth
+4. `workshop_end summary="..."` + `tasks_update id="TP-X" status="done"`
+
+**Never execute tasks directly without a workshop wrapper.** Workshops provide: audit trail, phase discipline, knowledge impact scan, and session continuity (new session can resume from workshop ID).
+
+**Minimal task prompt format** (everything else comes from task description):
+```
+tasks_get id="TP-X"
+workshop_start topic="TP-X: [title]" template_name="quick" roles=[...]
+```
+
 ## Rules
 
 **NEVER:**
@@ -47,8 +76,10 @@ This loads: user info, notifications, active roles, open tasks, knowledge index,
 - Respond without knowing the user's profile. If refresh hasn't been run, call `whoami` first. Adapt communication based on the user's context field: match vocabulary, detail level, and language to their role and expertise.
 
 **ALWAYS:**
-- Use subagents to parallelize independent work
+- Use `TodoWrite` to track multi-step work
+- Use `AskUserQuestion` before starting complex tasks
 - Adapt communication style to the user (check `whoami` and contacts)
+- Use `present_files` when producing documents, exports, or deliverables
 
 ## Git Commits
 
@@ -64,23 +95,19 @@ All tags follow `prefix:value` format: `scope:`, `project:`, `feature:`, `epic:`
 - `tilppa-agents` -- core: tasks, knowledge, decisions, workshops, contacts, teach, governance (trust, autonomy, approval gates)
 - `tilppa-admin` -- settings, onboarding, audit, clearance, policies, shaping
 
-Requires Claude Code v2.1.7+ for deferred tool loading (MCP tool search) -- tools are discovered on-demand via ToolSearch instead of loading all into context.
+Tools are discovered on-demand via ToolSearch instead of loading all into context.
 
 ## Authentication
 
-This plugin uses **OAuth 2.1** via WorkOS AuthKit. On first use, Claude Code opens a browser for login. Tokens are managed automatically.
-
-To re-authenticate: `/mcp` > select server > "Authenticate"
+This plugin uses **OAuth 2.1** via WorkOS AuthKit. On first MCP tool call, a browser opens for login. Tokens are managed automatically.
 
 ## Troubleshooting
 
 If MCP tools are missing or `/tilppa-agents:tilppa-refresh` fails:
 
-1. **Plugin enabled?** -- `/plugin` > check tilppa-agents is enabled
-2. **Authenticated?** -- `/mcp` > check server status, re-authenticate if needed
-3. **Claude Code version?** -- Requires v2.1.64+ for OAuth support
-4. **Server running?** -- `curl https://agents.tilppa.com/health`
-5. **OAuth browser not opening?** -- Check default browser settings, try `/mcp` > re-authenticate
-6. **Token expired?** -- Run `/mcp` > select server > "Authenticate" to refresh
-7. **Wrong org?** -- Use `/tilppa-agents:tilppa-org` to switch organization
-8. **Reinstall plugin** -- `claude plugin uninstall tilppa-agents` then reinstall
+1. **Plugin enabled?** -- Check tilppa-agents plugin is active in Cowork settings
+2. **Authenticated?** -- Check connection status, re-authenticate if needed
+3. **Server running?** -- Check https://agents.tilppa.com/health
+4. **Token expired?** -- Re-authenticate to refresh
+5. **Wrong org?** -- Use `/tilppa-agents:tilppa-org` to switch organization
+6. **Reinstall plugin** -- Remove and reinstall the plugin in Cowork

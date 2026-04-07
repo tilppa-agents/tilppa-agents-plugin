@@ -13,17 +13,19 @@ Detect from user's environment locale. Supported: fi, en. Default: en.
 
 ### Flow
 
+Use `AskUserQuestion` for each question step — this gives the user a clean selection UI in Cowork.
+
 1. **Start:** `onboarding_update status="in_progress"` (server: admin)
-2. **Question 1 — Role type:** "What best describes your role?"
-   - `developer` — technical, writes code
-   - `product` — product management, requirements, roadmap
-   - `designer` — UI/UX design, visual design
-   - `other` — none of the above
-3. **Question 2 — First goal:** "What do you want to do first?"
-   - `tasks` — manage and track work
-   - `knowledge` — search and document learnings
-   - `workshop` — plan features or decisions collaboratively
-   - `other` — explore on my own
+2. **Question 1 — Role type:** Use `AskUserQuestion` with header "Role" and options:
+   - Developer — koodaus, arkkitehtuuri, integraatiot
+   - Product — tuotehallinta, roadmap, priorisointi
+   - Designer — UI/UX, visuaalinen suunnittelu
+   - Other — custom role description
+3. **Question 2 — First goal:** Use `AskUserQuestion` with header "First goal" and options:
+   - Tasks — tehtävien hallinta ja seuranta
+   - Knowledge — tietokannan selaaminen ja oppiminen
+   - Workshop — suunnittelu ja päätöksenteko
+   - Other — explore on my own
 4. **Save answers:** `onboarding_update answers={"role_type": "...", "first_goal": "..."}` (server: admin)
 5. **Step 3 — Generate context:** Using the user's role_type, first_goal, and org_info, write a ~100 word description covering:
    - Their role in the company (real role, not Tilppa agent roles)

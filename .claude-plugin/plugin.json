@@ -1,7 +1,7 @@
 {
   "name": "tilppa-agents",
-  "version": "1.0.0",
-  "description": "AI collaboration system for tasks, knowledge management, workshops, and governance",
+  "version": "1.1.0-cowork",
+  "description": "AI collaboration system for tasks, knowledge management, workshops, and governance — optimized for Claude Cowork",
   "author": {
     "name": "Tilppa",
     "url": "https://agents.tilppa.com"
@@ -17,6 +17,7 @@
     "workshops",
     "governance",
     "collaboration",
-    "mcp"
+    "mcp",
+    "cowork"
   ]
 }

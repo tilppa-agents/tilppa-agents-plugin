@@ -12,8 +12,9 @@ Load the current session context by calling `mcp__tilppa-agents__refresh_tilppa`
 ### Steps
 
 1. Call `mcp__tilppa-agents__refresh_tilppa` with the requested depth
-2. **Print the full response as text** — tool output collapses in the UI
-3. Show pending notifications first
+2. Show pending notifications first
+3. If user has open tasks, use `TodoWrite` to create a task overview so they can see what's pending
+4. If user hasn't stated what they want to work on, use `AskUserQuestion` to ask
 
 ### Loaded Context
 

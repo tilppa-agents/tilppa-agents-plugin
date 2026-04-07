@@ -23,6 +23,8 @@ Act on pending notifications immediately — read them aloud and ask how to proc
 
 When a user says "remind X tomorrow at 12 that...":
 
+Use `AskUserQuestion` to confirm recipient and time if ambiguous.
+
 ```
 notifications_create
   recipient: "Otto"
@@ -31,6 +33,10 @@ notifications_create
   message: "Detailed information..."
   scheduled_for: "2026-01-26T12:00:00"
 ```
+
+### Cowork Scheduled Tasks
+
+In Cowork, you can also create local scheduled tasks using `create_scheduled_task` for personal reminders that trigger within the desktop app — without involving the Tilppa notification system. Use Tilppa notifications for team communication, Cowork scheduled tasks for personal local reminders.
 
 ### Send a Message to a Colleague
 
