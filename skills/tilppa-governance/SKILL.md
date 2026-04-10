@@ -70,6 +70,14 @@ Layer 1: FOUNDATION — Roles, Tasks, Knowledge, Decisions
 | `approvals_get` | Get approval details |
 | `approvals_vote` | Vote on an approval (approve/reject) |
 
+### Roles (server: agents)
+
+| Tool | Purpose |
+|------|---------|
+| `roles_list` | List all roles with overview (name, category, agent_id, status) |
+| `roles_get` | Full role details incl. soul_data. Key params: `role_name`, `agent_id` |
+| `role_manage` | CRUD roles + activate/deactivate. Key params: `action` (add/remove/create/update/delete), `role_name`, `agent_id`, `soul_data`, `status` (active/suspended/retired), `tier` (1/2), `autonomy_ceiling` |
+
 ### Groups (server: agents)
 
 | Tool | Purpose |
@@ -91,6 +99,11 @@ policy_check data_type="knowledge" topic="financial-budget" user_id="..."
 content_shape data_type="knowledge" topic="budget" content="..."
 gates_check action_type="deploy"  # Check if deploy needs approval
 approvals_list                    # List pending approvals
+roles_list                        # List all roles (overview)
+roles_get role_name="PekanBuddy"  # Full role details + soul_data
+roles_get agent_id="pekan-buddy"  # Lookup by agent_id
+role_manage action="create" role_name="MyAgent" category="tech" description="..." agent_id="my-agent" soul_data={"id":"my-agent","role":"MyAgent","persona":{"goals":["..."]}} status="active"
+role_manage action="update" role_name="MyAgent" soul_data={...} status="suspended"
 ```
 
 ## Information Shaping
