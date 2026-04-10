@@ -24,7 +24,13 @@ When the user requests a workshop, use `AskUserQuestion` to confirm topic, scope
 
 ### Runbook Templates
 
-`quick` (bugfix, small change) | `default` (new feature, architecture) | `pr-review` (PR code review) | `review` (work/decision review)
+| Template | Display Name | Use when |
+|----------|-------------|----------|
+| `quick` | Decision | Bugfix, small change, clear-cut decision |
+| `default` | Full Workshop | New feature, architecture, planning + implementation |
+| `implementation` | Build | Feature implementation, scope is clear — skip synthesis/decision |
+| `pr-review` | PR Review | PR code review |
+| `review` | Work Review | Work/decision review, retrospective |
 
 ### Phase Instructions Cascade
 
