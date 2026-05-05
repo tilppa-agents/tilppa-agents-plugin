@@ -4,9 +4,14 @@ Tilppa Agents is an AI collaboration system for tasks, knowledge management, wor
 
 ## Session Start
 
-**At the START of every conversation**, run `/tilppa-agents:tilppa-refresh`.
+**Do NOT auto-run `/tilppa-agents:tilppa-refresh`.** Before your first response, call:
 
-This loads: user info, notifications, active roles, open tasks, knowledge index, and recent decisions.
+1. `mcp__tilppa-agents__whoami` — load user profile (required by NEVER rule below)
+2. `mcp__tilppa-agents__notifications_query` mode: "pending" — surface pending alerts
+
+This pair (~200 tokens) replaces the full refresh (~5–10 kT per call). Show pending notifications first if any exist.
+
+Run `/tilppa-agents:tilppa-refresh` **only on explicit request** — e.g. status overview, or an ad-hoc session without a clear task. `workshop_start` already returns relevant tasks/knowledge/decisions semantically, so a general refresh is rarely needed when you begin with a TP-task.
 
 ## Cowork Interaction Patterns
 
