@@ -32,9 +32,33 @@ When the user requests a workshop, use `AskUserQuestion` to confirm topic, scope
 | `pr-review` | PR Review | PR code review |
 | `review` | Work Review | Work/decision review, retrospective |
 
+## Phase Flow
+
+**Default flow — local TodoWrite as phase audit trail (TP-865).** Always use this unless you have a specific reason for the legacy flow.
+
+`workshop_start` returns the runbook with all phase definitions in one shot. Build a local `TodoWrite` list — one entry per phase — and drive progress via list updates. Save outputs once at the end.
+
+**Steps:**
+
+1. `workshop_start topic="..." template_name="..." roles=[...]` — load runbook + context.
+2. Call `runbook_get name=<template>` to read the full phase list (instructions, role, gate, expected_outputs).
+3. Use `TodoWrite` to create one entry per phase, in order. Each entry's content = the phase's full `phase_instructions`.
+4. Drive progress by updating each entry's status: `pending` → `in_progress` → `completed`. Read instructions just-in-time when you claim the phase.
+5. At the end, call `workshop_end` once and `workshop_save_output` once with the entire output blob (one save per session, not per phase).
+
+**Why:** ~30–50% fewer MCP calls per workshop. Phase instructions load on-demand. Audit trail preserved via the workshop session id + the local TodoWrite list + saved blob.
+
+### Legacy flow (only if needed)
+
+`workshop_advance` per phase + `workshop_save_output` per phase. Server tracks phase progression in DB. Use only when:
+- Orchestrating parallel multi-agent runs that require server-side phase synchronisation
+- Falling back if the default flow misbehaves
+
+These server-side endpoints (`workshop_advance`, per-phase `workshop_save_output`, `workshop_synthesize`) deprecate in TP-865 part 2 (after TP-771 / F6.2 prod cutover) and will be removed.
+
 ### Phase Instructions Cascade
 
-Phase instructions are delivered by MCP server via `workshop_advance`. Four layers merge in order:
+Phase instructions are delivered by MCP server. Four layers merge in order:
 
 1. **Template** (base) — runbook template phases from DB
 2. **Org** — `runbook_org_customize modify_phases={...}` (admin-only, instructions **appended** not replaced)
@@ -63,13 +87,13 @@ Active iterative phases: pr-review.review(3), implementation.verification(2), re
 
 ```
 workshop_start        topic="..." [project/template_name/roles/workshop_type/depth]
-workshop_advance      session_id="..." [iterate=true] [force=true]  # Advance or iterate
-workshop_status       session_id="..."                          # Show session state
-workshop_end          session_id="..." [summary="..."]          # End and save session
+workshop_advance      session_id="..." [iterate=true] [force=true]   # classic flow only
+workshop_status       session_id="..."                          # show session state
+workshop_end          session_id="..." [summary="..."]          # end and save session
 workshop_save_output  session_id="..." phase_id="..." output={...} [role="..."]
-workshop_list         [show_recent=true]                        # List recent workshops
+workshop_list         [show_recent=true]                        # list recent workshops
 exploration_contribute session_id="..." role="..." perspective="..." [recommendations/concerns/questions]
-workshop_synthesize   session_id="..." [phase_id="..."]         # Synthesize outputs
+workshop_synthesize   session_id="..." [phase_id="..."]         # synthesize outputs (classic flow)
 ```
 
 ### Workshop Output as Documents

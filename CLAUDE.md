@@ -61,6 +61,10 @@ This loads: user info, notifications, active roles, open tasks, knowledge index,
 
 **Never execute tasks directly without a workshop wrapper.** Workshops provide: audit trail, phase discipline, knowledge impact scan, and session continuity (new session can resume from workshop ID).
 
+**Phase progression (TP-865):**
+
+After `workshop_start`, call `runbook_get name=<template>` once, then use `TodoWrite` to create one entry per phase (content = phase_instructions). Drive progress through the list. End with one `workshop_save_output` blob + `workshop_end`. Skips `workshop_advance` entirely. This is the default — use it unless you specifically need server-side phase synchronisation. Legacy `workshop_advance` / per-phase save / `workshop_synthesize` endpoints deprecate in TP-865 part 2 (after TP-771).
+
 **Minimal task prompt format** (everything else comes from task description):
 ```
 tasks_get id="TP-X"
